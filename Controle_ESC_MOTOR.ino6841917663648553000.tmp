@@ -1,0 +1,42 @@
+//Programa: Controle de motor brushless
+//Autor : Arduino e Cia
+
+#include <Servo.h>
+
+Servo MotorTeste;
+
+int pino_pot = 2; //Pino do potenciometro
+int pino_motor1 = 3; //Pino de controle do motor
+int pino_motor2 = 9;
+int pino_motor3 = 10;
+int pino_motor4 = 11;
+int pino_motor5 = A0;
+int pino_motor6 = A1;
+int valor;
+
+void setup()
+{
+  Serial.begin(9600);
+  MotorTeste.attach(pino_motor1);
+  MotorTeste.attach(pino_motor2);
+  MotorTeste.attach(pino_motor3);
+  MotorTeste.attach(pino_motor4);
+  MotorTeste.attach(pino_motor5);
+  MotorTeste.attach(pino_motor6);
+  Serial.println("Aguardando 5 segundos....");
+  delay(5000);
+}
+
+void loop()
+{
+  valor = analogRead(pino_pot); //Le o valor do potenciometro
+  valor = map(valor, 0, 1023, 0, 179); //Converte o valor 0,1023 para uma faixa entre 0 e 179
+  Serial.print("Potenciometro: "); //Mostra o valor no serial monitor
+  Serial.println(valor);
+  MotorTeste.write(valor); //Envia o valor para o motor
+  MotorTeste.write(valor);
+  MotorTeste.write(valor);
+  MotorTeste.write(valor);
+  MotorTeste.write(valor);
+  MotorTeste.write(valor);
+}
